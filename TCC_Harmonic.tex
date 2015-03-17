@@ -1,0 +1,258 @@
+% Definicoes do \documentclass
+
+\documentclass[ppginf, pep]{esinucpel}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+\title{Harmonic: O Próximo Gerador de Sites Estáticos}
+
+\author{Matté}{Fabrício da Silva}
+\advisor[Prof.]{Rodrigues}{Sérgio Luis}
+% \coadvisor[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
+% \collaborator[Prof.~Dr.]{Aguiar}{Marilton Sanchotene de}
+
+
+\keyword{Gerador de Sites Estáticos}
+\keyword{Node.js}
+\keyword{ECMAScript 2015}
+
+
+
+\begin{document}
+
+%\renewcommand{\advisorname}{Orientadora}           %descomente caso tenhas orientadora
+%\renewcommand{\coadvisorname}{Co-orientadora}      %descomente caso tenhas co-orientadora
+
+\maketitle
+\sloppy
+
+% Sumario
+\tableofcontents
+
+% Resumo em Portugues (no maximo 250 palavras)
+\begin{abstract}
+
+O projeto Harmonic tem por objetivo desenvolver um gerador de sites estáticos, utilizando como base a plataforma Node.js e os recursos mais recentes da linguagem JavaScript, recursos que estão sendo especificados no padrão ECMAScript 2015 (previamente conhecido como ECMAScript 6), o qual é previsto se tornar finalizado e oficializado como padrão da linguagem JavaScript na metade de 2015. Para isto, é utilizado o compilador Babel, que transforma código que utiliza recursos de especificações futuras do JavaScript em código que pode ser executado nos motores JavaScript atuais.
+
+O Harmonic roda sobre a plataforma Node.js, que é, de forma resumida, um motor JavaScript combinado com servidor Web, que permite execução do mesmo código JavaScript em todas as principais plataformas (Windows, Linux, Mac), sem possuir as restrições de segurança comumente encontradas no ambiente de navegadores. Ou seja, o código JavaScript executado pelo Node.js tem acesso completo ao sistema de arquivos e rede da máquina hospedeira, e esta é uma das principais capacidades do Node.js das quais o Harmonic utiliza para gerar sites estáticos.
+
+
+\end{abstract}
+
+\chapter{Introdução}
+
+%A computação  ubíqua~\cite{Cac08}, é  uma forma de computação onde o processamento está espalhado no ambiente através de  vários dispositivos, que executam tarefas bem definidas dependendo de sua natureza,  interligados de forma que essa estrutura torna-se invisível para o usuário. Aplicações  ubíquas executam em ambientes instrumentados com sensores, geralmente dotados  de interfaces de redes sem fio, nos quais dispositivos, agentes de software e serviços são  integrados de forma transparente e cooperam para atender aos objetivos da aplicação.  Essa categoria de aplicações caracteriza-se por constantes mudanças em seu estado de  execução, geradas pelos ambientes altamente dinâmicos em que executam.
+%
+%A computação ubíqua ganhou muito espaço com a disseminação de dispositivos portáteis, sobretudo após a ampliação das tecnologias de redes sem fio. Dessa forma, o uso da computação tem sido trazido para diversos cenários reais, onde sua usabilidade nos moldes da computação tradicional não poderia ser tão ampla. Cenários na área médica, podem estender-se a diversas atividades, como telemonitoramento através do uso de sensores de medicina ubíqua, diagnósticos remotos, segunda opinião, juntas médicas, viabilizando a integração de dispositivos móveis como PDAs, Tablets, Smartphones, dentre outros com os sistemas de prontuário eletrônico existentes nos hospitais, dentre outros cenários, desde residências inteligentes a trabalhos colaborativos.
+%
+%
+%Ambientes  de  medicina  ubíqua  são  aqueles  em  que  facilidades  tecnológicas, como dispositivos móveis e redes de comunicação sem fio, trazem novas possibilidades de acesso e interação de seus usuários, como por exemplo, o acesso das informações dos pacientes. Estas  informações  compõem  o  chamado  Prontuário Eletrônico  do  Paciente (PEP),  permitindo  que  dados  sobre  exames,  fatos  e  situações  sobre  a  saúde  de  um paciente possam  ser acessados através de múltiplos dispositivos e  redes  heterogêneas. Na medicina ubíqua podem-se  realizar acessos a PEPs com  informações consolidadas sobre os pacientes de qualquer lugar da rede, permitindo, inclusive, que haja cooperação entre profissionais independentemente do tempo e do espaço \cite {Diniz:09}.
+%
+%Em  particular,  ambientes  de  medicina  ubíqua  precisam  oferecer  suporte  à mobilidade  de  seus  profissionais,  tendo  em  vista  que  a  mobilidade  dos  médicos  é inerente  à  própria  profissão.  Além  desse  caráter  nômade  do  médico,  é  importante considerar  que  a  atividade  médica  é  bastante  fragmentada \cite {tentori:08}, ou seja, está sujeita a  interrupções durante sua execução, uma vez que médicos passam  pouco  tempo  em  cada  local  ou  atividade.  Dessa  forma,  mecanismos  que facilitem  a  continuidade  de  atividades  dos  profissionais,  mesmo  em  virtude  de  seus constantes deslocamentos, tendem a melhorar a produtividade dos mesmos \cite{Diniz:09} .
+%
+%
+%Como já mencionado anteriormente, os médicos e colaboradores de hospitais trabalham em constante movimento. O trabalho descrito em \cite{Rodriguez:04} também se utiliza desta motivação reafirmando a necessidade de constante mudança de localização por parte destes profissionais em suas atividades diárias.
+%
+%
+%Ao se construir e executar aplicações para medicina ubíqua, há uma série de funcionalidades que devem ser providas, envolvendo desde a aquisição de informações contextuais, a partir do conjunto de fontes heterogêneas e distribuídas,  até a representação dessas informações, seu processamento, armazenamento, e a  realização de inferências para seu uso em tomadas de decisão. Em vez dessas  funcionalidades ficarem a cargo da aplicação, e deste modo  incorporandas ao código do negócio, são  utilizadas plataformas ou \emph{middlewares} de provisão  de contexto.
+%
+%Esse trabalho está inserido nos esforços de pesquisa do projeto PERTMED (Sistema de TeleMedicina Móvel), a principal razão desta inserção é o fato da área médica, estar sendo alvo de avanços das tecnologias móveis e sem fio, como Bluetooth, WiFi, GPRS, os quais somados a popularização dos dispositivos móveis e sem fio, PDAs, Smartphone, GPS e pequenos dispositivos médicos, como \emph{Holters}, entre outros, facilitam a tarefa de monitoramento de pacientes. Infraestruturas de software para o gerenciamento dessas informações contextuais necessitam, em geral, coletar uma grande quantidade de informações de diferentes naturezas do ambiente, analisando essas informações como variáveis independentes, ou combiná-las com outras informações do passado ou presente. Além disso, essas aplicações são caracterizadas por apresentarem contextos altamente dinâmicos e variados, com um grande grau de mobilidade dos seus principais atores (médicos, pacientes, paramédicos, etc.).
+	%
+%Na perspectiva de suprir estas funcionalidades, este trabalho tem como objetivo principal propor um \emph{framework } denominado uMed direcionado as demandas da medicina ubíqua.
+
+\chapter{Tema}
+
+%O trabalho proposto tem como tema  o desenvolvimento de uma arquitetura de software na perspectiva da computação ubíqua direcionada para área da medicina. Os ambientes de medicina ubíqua são aqueles em que facilidades tecnológicas, como dispositivos móveis e redes de comunicação sem fio, trazem novas possibilidades de acesso e interação de seus usuários (médicos, enfermeiros, pacientes, dentre outros) tornando o serviço mais ágil e abrangendo regiões carentes de serviços médicos além de outras possibilidades.
+%
+%Assim o tema deste trabalho abrange estudar projetos já existentes na área de medicina ubíqua assim como as soluções utilizadas para solucionar os desafios impostos nesta área e propor a criação de \emph{framework} chamado de uMed que atenda as demadas da medicina ubíqua.
+
+\chapter{Motivação}
+
+%É crescente o uso de tecnologia na prestação de serviços de saúde. As atividades de segunda opinião, monitoramento de pacientes, telediagnóstico remoto entre outras são atividades utilizadas mediante uma infraestrutura de rede, realizadas por profissionais conectados em outro centro médico distante da localidade onde o paciente está sendo examinado.
+%Estes cenários são interessantes pois reduzem custos com relação ao deslocamento dos profissionais de saúde e com relação à troca de informações sobre diagnósticos. Todo o histórico de um paciente pode ser armazenado em um Prontuário Eletrônico do Paciente (PEP), e através do acesso aos dados é possível auxiliar na obtenção de um diagnóstico completo e eficaz.
+%
+%De acordo com o Conselho Federal de Medicina, o prontuário do paciente é um documento único constituído de um conjunto de informações, sinais e imagens registradas, geradas a partir de fatos, acontecimentos e situações sobre a saúde do paciente e a assistência a ele prestada, de caráter legal, sigiloso e científico, que possibilita a comunicação entre membros da equipe multiprofissional e a continuidade da assistência prestada ao indivíduo \cite{CFM:02}.
+%
+%Com a expansão das redes de comunicação, possibilitando larguras de banda superiores, comunicação sem fio e acesso através de dispositivos de menores dimensões, como Notebooks, Smartphone,  Personal Digital Assistant (PDA), entre outros, o uso de tecnologia móvel nos ambientes de saúde tornou-se um desafio possível. Através do uso de dispositivos de menores dimensões e de enlaces de comunicação sem fio e de alta velocidade, é possível se fazer acesso ao PEP, de maneira ubíqua, conforme conceito introduzido por Weiser e colegas \cite{weiser:99}.
+%Segundo Weiser, através da computação ubíqua, o usuário pode ter acesso ao seu ambiente computacional a partir de qualquer lugar, em qualquer momento, de várias formas, através de  dispositivos diferentes e com as mais variadas formas de tecnologias de comunicação.
+%
+%Weiser e colegas \cite{weiser:99} argumentam que computadores de pequenas dimensões estarão embutidos em objetos do cotidiano do usuário, tais como livros, roupas e objetos pessoais em geral, interagindo entre si e adaptando o comportamento de suas aplicações, de acordo com informações relevantes à sua execução. Dessa forma, estes elementos seriam sensíveis ao contexto que os cercam, em busca de informações que possam aprimorar a execução de suas aplicações.
+%
+%Segundo Diniz ~\cite{Diniz:09} ambientes de prestação de serviços de saúde, o suporte à mobilidade é uma questão importante, tendo em vista que a mobilidade dos médicos é inerente à própria profissão. Além deste caráter nômade do médico é importante considerar que a atividade médica é bastante fragmentada, ou seja, está sujeita a interrupções durante sua execução, pois poderá realizar consultas presenciais, realizar cirurgias, visitas a pacientes, em deslocamento para sua residência ou local de trabalho, de sobreaviso em sua casa ou local de lazer, e ser interrompido por um paciente ou colega para a tomada de alguma decisão com relação à saúde de algum paciente. Da mesma forma, o médico poderá realizar uma consulta ou inclusão de dados de algum prontuário eletrônico de paciente e ser interrompido para a realização de alguma atividade de urgência. Em cada uma dessas situações, o médico poderá ter à sua disposição diferentes dispositivos, tais como Personal Computer (PC), Notebooks, Tablets, Palmtops, Smartphones, PDAs com configurações diversas e poderá fazer acesso ao sistema de informações de saúde de qualquer um deles. Também poderá ser permitido que o médico inicie a sessão usando um dispositivo, transfira-a para outro dispositivo, concluindo-a em um terceiro.
+%
+%Para constatar o caráter nômade e fragmentado da atividade médica, observa-se o trabalho descrito por Tentori e Favela \cite{tentori:08}. Eles realizaram um estudo de caso em um hospital público, onde observaram as práticas do corpo médico dentro do hospital. Verificou-se que os funcionários da equipe pesquisada (médicos, enfermeiros, técnicos entre outros) se movem mais de 50\% do tempo. A análise mostrou ainda que em 69\% do tempo eles estão interagindo com outras pessoas e que 26\% dessas interações envolvem dispositivos, como, por exemplo, telefones. Os funcionários gastam em média 2,5 minutos em cada interação. Também conseguiram constatar que o trabalho desempenhado é altamente fragmentado. Os médicos não gastam mais que cinco minutos conduzindo uma atividade, sem serem interrompidos. Eles também mensuraram o tempo de transição entre atividades, ou seja, o tempo decorrido entre duas atividades consecutivas, e verificaram, então, que este tempo chegava, em média, a 51 segundos. Essa fragmentação, normalmente, ocorre devido a uma necessidade de interrupção, devido a um chamado ou alguma atividade de maior urgência.
+%
+%Conforme pode ser observado, o cenário de aplicação desta dissertação é voltado para auxiliar os profissionais na área de saúde em sua rotina diária nos hospitais e consultórios, sobretudo no relacionamento com os pacientes, no que diz respeito ao uso de PEPs, e acompanhamento médico à distância. Considera-se um ambiente de computação ubíqua, aquele onde há diversos dispositivos computacionais (heterogêneos) nos vários locais por onde um médico passa, e o software de auxílio ao trabalho médico seja capaz de descobrir recursos computacionais disponíveis se adaptar de forma sensível a contexto e perceber o estado do paciente e do ambiente.
+%
+%O grupo G3PD ao qual este trabalho está sendo desenvolvido vem ultimamente pesquisando sobre computação ubíqua/pervasiva desenvolvendo serviço para um \textit{middleware} chamado de EXEHDA. Neste trabalho procuro identificar os desafios de pesquisa na área de medicina ubíqua e com os resultados a serem obtidos a perspectiva é adequar o uso dos serviços do  \textit{middleware} EXEHDA para as demandas funcionais introduzidas pela medicina ubíqua.
+
+
+\chapter{Escopo do Trabalho}
+
+\section{Medicina Ubíqua: Principais Demandas}
+
+%Ambientes  de  medicina  ubíqua  são  aqueles  em  que  facilidades  tecnológicas, como dispositivos móveis e redes de comunicação sem fio, trazem novas possibilidades de acesso e interação de seus usuários, como por exemplo, o acesso das informações dos pacientes. Estas  informações  compõem  o  chamado  Prontuário Eletrônico  do  Paciente (PEP),  permitindo  que  dados  sobre  exames,  fatos  e  situações  sobre  a  saúde  de  um paciente possam  ser acessados através de múltiplos dispositivos e  redes  heterogêneas. Na medicina ubíqua podem-se  realizar acessos a PEPs com  informações consolidadas sobre os pacientes de qualquer lugar da rede, permitindo, inclusive, que haja cooperação entre profissionais independentemente do tempo e do espaço \cite {Diniz:09}.
+%
+%Em  particular,  ambientes  de  medicina  ubíqua  precisam  oferecer  suporte  à mobilidade  de  seus  profissionais,  tendo  em  vista  que  a  mobilidade  dos  médicos  é inerente  à  própria  profissão.  Além  desse  caráter  nômade  do  médico,  é  importante considerar  que  a  atividade  médica  é  bastante  fragmentada \cite {tentori:08}, ou seja, está sujeita a  interrupções durante sua execução, uma vez que médicos passam  pouco  tempo  em  cada  local  ou  atividade.  Dessa  forma,  mecanismos  que facilitem  a  continuidade  de  atividades  dos  profissionais,  mesmo  em  virtude  de  seus constantes deslocamentos, tendem a melhorar a produtividade dos mesmos \cite{Diniz:09} .
+%
+%Como já mencionado anteriormente, os médicos e colaboradores de hospitais trabalham em constante movimento. O trabalho descrito em \cite{Rodriguez:04} também se utiliza desta motivação reafirmando a necessidade de constante mudança de localização por parte destes profissionais em suas atividades diárias.
+%
+%A informação requerida por um especialista é dependente da sua localização. Por exemplo, o acesso aos resultados de exames laboratoriais de pacientes deve ser mais relevante quando o médico estiver perto do paciente que quando ele estiver em qualquer outro lugar.
+%
+%Rodrigues e colegas \cite {Rodriguez:04} descrevem um sistema de informações médicas desenvolvido para prover acesso a registros de pacientes baseado na localização do usuário.
+%O sistema baseia-se em dispositivos \emph{Handhelds} usando estimativas de localização do usuário que acessa as informações do sistema hospitalar que sejam relevantes para a sua localização, por exemplo, quando o médico estiver próximo ao paciente ele terá acesso aos exames daquele paciente, entretanto se ele não tiver próximo ao mesmo, poderá não ter tal acesso.
+%
+%O trabalho desenvolvido pelo grupo de Rodriguez trata de uma aplicação com caráter específico, mas não uma solução genérica, baseada em \emph{middleware}.
+%
+%
+%\subsection{Medicina Ubíqua: Um Exemplo de Aplicação}
+%\emph{Ubiquitous healthcare} é um campo emergente da tecnologia que utiliza um grande número de sensores e atuadores para monitorar o paciente capaz de melhorar a sua condição física e mental \cite{BrownAdams:07}.
+%
+%Conforme \cite{BrownAdams:07} pequenos sensores estão sendo projetados para recolher informação sobre as condições corporais, como temperatura, frequência cardíaca, pressão arterial, níveis químicos do sangue e da urina, frequência respiratória e níveis de atividade que fornece informações que podem ser usado para diagnosticar problemas de saúde. Estes sensores são usados ou implantados no corpo, ou instalados em suas residências e nos locais de trabalho.
+%
+%Os atuadores irão mais longe e desencadearão ações como a liberação de pequenas quantidades de produtos farmacêuticos para a corrente sanguínea ou a estimulação elétrica de áreas do cérebro (por exemplo, aqueles implicados em condições tais como a doença de Alzheimer e de Parkinson ou aqueles associados com depressão).
+%
+%O principal objetivo destes sensores e atuadores é ajudar os pacientes e as pessoas que a cuidam a monitorar o estado de saúde e elaborar e implementar intervenções para melhorar essa situação. Inicialmente, eles tendem a ser utilizados por médicos de família para controlar remotamente os pacientes, e fornecer conselhos de saúde em geral. Isto é particularmente útil para pacientes com mobilidade prejudicada, incluindo muitos idosos. Com o tempo, a tecnologia destina-se a apoiar um maior auto-controle e cuidado por todos os indivíduos, e não apenas aqueles em condições crônicas.  Pacientes menos susceptíveis, como crianças  e aqueles com deficiências cognitivas, será necessário um apoio mais intensivo de profissionais da saúde e familiares.  \emph{Ubiquitous healthcare technologies} de saúde pode monitorar e aconselhar sobre fatores de saúde a longo prazo, como dieta e exercício, aconselhando a  uma mudança no sentido de "bem-estar"  que incorpora, bem-estar como saúde física e mental \cite{BrownAdams:07}.
+%
+%As tecnologias de computação ubíqua estão sendo usados para melhorar o desempenho do paciente, dispositivos de apoio  como cadeira de rodas inteligentes que evitam o impacto com objetos e, especialmente, com outras pessoas em áreas congestionadas, e fornecem um \emph{feedback}, como descrições verbais de objetos para deficientes visuais.
+%
+%De acordo com \cite{BrownAdams:07} tecnologias também estão sendo desenvolvidas para apoiar as atividades dos profissionais da área de saúde. Exemplos incluem sistemas de prontuário do paciente que modificam as informações apresentadas com base no seu contexto atual provendo um apoio para melhorar o fluxo de informações entre enfermeiros durante a mudança de turno. Outro exemplo seria a transmissão de informações (incluindo imagens) para o hospital de uma possível vitima de um acidente no intervalo de tempo até a chegada da ambulância ou hospital. Sistemas foram também desenvolvidos para apoiar a formação de médicos.
+%
+%
+%De acordo com Johnson \cite{Johnson:05}, os ambientes de computação ubíqua são espaços inteligentes, contendo dispositivos móveis sem fio, interconectados entre si, com consciência das informações do ambiente e reagindo inteligentemente a informações do mesmo, acessível
+%a qualquer hora e lugar. Para Couloris e colegas \cite{Couloris:05},um espaço inteligente é qualquer espaço físico com serviços embarcados, ou seja, serviços providos sobretudo dentro daquele espaço físico.
+%
+%Quando se refere a ambientes de medicina ubíqua, como por exemplo em um hospital, o conceito de espaços inteligentes deverá possibilitar a realização das seguintes ações \cite {Diniz:09}:
+%
+%\begin{itemize}
+ %\item permitir que os profissionais de saúde, através de dispositivos portáteis ou não, possam ter acesso às informações do PEP, de qualquer local, desde que estejam conectados à rede. O ambiente se encarregará de gerir a comunicação de usuários e dispositivos às fontes de informações;
+%
+ %\item habilitar a migração de aplicações de modo que uma aplicação sendo executada por um dispositivo possa ser transferida para outro dispositivo, dando continuidade a sessão;
+%
+ %\item gerenciar as sessões de PEPs de diferentes usuários, usando diferentes dispositivos e redes de acesso;
+%
+ %\item utilizar informações contextuais para auxiliar na disseminação da informação, automatização de configuração e adaptação de conteúdo.
+%\end{itemize}
+%
+%
+%\subsection{Contribuições para Área da Saúde}
+%Conforme visto anteriormente o uso da computação ubíqua oferecerá vantagens tais como: aumento da eficiência do serviço, a qualidade e melhora o gerenciamento da relação com o paciente \cite{varshney:03}. Este novo sistema de saúde também prevê uma visão de "hospital virtual", o qual estende-se para casa dos pacientes ou lugares onde eles se encontram, onde sensores/dispositivos monitoram as condições ambientais e do paciente e comunicam-se, via rede sem fio, com as centrais médicas para a tomada de decisões e ações pertinentes. Experiências nesse sentido estão sendo conduzidas por alguns projetos de pesquisa europeus, como o do \emph{Center of Pervasive Healthcare} da Dinamarca que desenvolve o projeto \emph{Hospital of the Future} \cite{bardram:05}.
+%
+%Como se vê, a computação ubíqua terá um enorme potencial de aplicabilidade na área da saúde. Visto que alguns dos problemas na área de saúde hoje em dia são \cite{PERTMED:07}:
+%
+%\begin{itemize}
+ %\item falta de acesso a serviços especializados em regiões remotas ou carentes;
+%
+ %\item alto custo de transporte de pacientes, especialmente de áreas pobres e rurais;
+%
+ %\item aumento da fragmentação e falta de sequência do tratamento.
+%\end{itemize}
+%
+%Uma questão que permeia esses três problemas é o acesso a informação de onde ela é gerada para onde ela é necessária, em tempo razoável e compatível com a gravidade da situação sendo tratada. A rapidez da decisão médica depende da pronta disponibilidade de informações, sendo esta a chave para a qualidade dos serviços prestados. Acesso à informação pode ser usado para substituir o transporte, por exemplo, pois um "paciente virtual" (formado pela gama de informações sobre seu estado de saúde) pode ser acessado a longas distâncias por um especialista remoto \cite{PERTMED:07}.
+%
+%Com a introdução da computação ubíqua na área da saúde, objetiva-se dentre outros aspectos, prover uma contribuição no sentido de superação de desigualdades regionais e sócio-econômicas, relativas ao acesso às informações dos sistemas de saúde.
+
+
+
+
+
+
+\chapter{Objetivo}
+
+O objetivo geral deste trabalho é explorar a área de geradores de sites estáticos, desenvolvendo um novo gerador de sites estáticos com recursos inovadores e fazendo uso das últimas tecnologias relacionadas à linguagem JavaScript.
+
+Os objetivos específicos são:
+\begin{itemize}
+	
+	\item estudar e aprofundar a metodologia de criação de sites estáticos;
+	\item estudar os recursos das próxima(s) versão(ões) do JavaScript (ECMAScript 2015 e além);
+	\item estudar a plataforma Node.js;
+    \item criar um gerador de sites estáticos com recursos que os demais ainda não possuem;
+
+\end{itemize}
+%
+%\chapter{Metodologia}
+%
+%\section{Revisão Bibliográfica Sobre o Escopo do Trabalho}
+	%Revisão da literatura relacionada à medicina ubíqua, computação ubíqua. Particularmente, no que diz respeito à medicina ubíqua, aprofundar aspectos relacionados às tecnologias associadas, bem como identificar e revisar os principais projetos na área.
+	%
+%\section{Estudo do Middleware EXEHDA}
+	%Estudo do serviços do \emph{middleware} EXEHDA enquanto ambiente de execução para computação ubíqua, que atendam as demandas da medicina ubíqua.
+%
+%\section{Estudo de Medicina Ubíqua}
+	%Pesquisa bibliográfica em teses, dissertações e artigos recentes, dentro de uma abordagem qualitativa e exploratória observando exemplos mais aderentes e a própria experiência do autor do domínio na pesquisa de aplicações médicas na integração com a computação ubíqua. 	
+	%
+%\section{Estudo de um Modelo Contextual para Medicina Ubíqua}	
+	%Estudo de um modelo apropriado para a representação da informação contextual responsável pelas principais entidades que representam informações úteis para a representação do contexto na área médica, como, as entidades usuário, paciente, laudo, imagem e hardware (ou equipamento).
+%Essas entidades poderiam ser refinadas em entidades mais simples como estudo, séries, procedimento, exame, conclusões relevantes, ou combinadas em superestruturas como histórico do paciente, e repositório de imagens, por exemplo.
+
+\chapter{Cronograma}
+
+%\begin{table}[htb]
+%\begin{center}
+%% \caption{Nome da Tabela}\label{tabela}
+%\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+%\hline
+ %Atividades/Meses & Jan & Fev & Mar & Abr & Mai & Jun & Jul & Ago & Set & Out & Nov & Dez \\
+%\hline
+ %\ref{l1} & x & x & x & x &  &  &  &  &  &  &  &  \\
+%\hline
+ %\ref{l2} & x & x & x & x & x &  &  &  &  &  &  &  \\
+%\hline
+ %\ref{l3} &  &  & x & x & x & x &  &  &  &  &  &  \\
+%\hline
+ %\ref{l4} &  &  &  &  & x & x & x &  &  &  &  &  \\
+%\hline
+ %\ref{l5} &  &  &  &  &  &  & x &  &  &  &  &  \\
+%\hline
+ %\ref{l6} &  &  &  &  &  &  & x & x &  &  &  &  \\
+%\hline
+ %\ref{l7} &  &  &  &  &  &  &  & x & x & x & x &  \\
+%\hline
+ %\ref{l8} &  &  &  &  &  &  &  &  &  &  & x &  \\
+%\hline
+ %\ref{l9} & x & x & x & x & x & x & x & x & x & x & x & x \\
+%\hline
+ %\ref{l10} &  &  &  &  &  &  &  &  &  &  &  & x \\
+%\hline
+%
+%\end{tabular}
+%\end{center}
+%\end{table}
+
+%\textbf{Atividades:}
+%\begin{enumerate}
+ %\item \label{l1} Revisão bibliográfica sobre o escopo do trabalho: medicina ubíqua, ambientes de medicina ubíqua e computação ubíqua.
+ %\item \label{l2} Estudo de projetos relevantes em medicina ubíqua.
+ %\item \label{l3} Estudo do serviços do \emph{middleware} EXEHDA.
+ %\item \label{l4} Estudo de tecnologias para interoperabilidade e comunicação de sistemas distribuídos.
+ %\item \label{l5} Planejamento de qual demandas da medicina ubíqua serão abordadas.
+ %\item \label{l6} Criar o design da infraestrutura de software para a demanda da medicina ubíqua
+ %\item \label{l7} Elaboração do \emph{framework} uMed que atenda a demanda necessária.
+ %\item \label{l8} Avaliação do \emph{framework} proposto.
+ %\item \label{l9} Redação da dissertação.
+ %\item \label{l10} Defesa da dissertação.
+%
+%\end{enumerate}
+
+\nocite*
+\bibliography{bibliografia}
+\bibliographystyle{abnt}
+
+\chapter{Assinatura}
+
+\vspace{10cm}
+
+\begin{center}
+
+%------------------------------------------
+%\\Prof. Dr. Adenauer Corrêa Yamin\\Orientador
+%\vspace{1cm}
+%\\------------------------------------------
+%\\Sérgio Luis Rodrigues \\Mestrando
+%\end{center}
+
+
+\end{document}
+
