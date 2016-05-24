@@ -4,6 +4,11 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{hyperref}
+%\usepackage[acronym]{glossaries}
+
+% Abreviaturas:
+%\newacronym{tc39}{TC39}{Technical Committee 39}
 
 \title{Harmonic: O Próximo Gerador de Sites Estáticos}
 
@@ -19,6 +24,7 @@
 
 
 
+%\makeglossaries
 \begin{document}
 
 %\renewcommand{\advisorname}{Orientadora}           %descomente caso tenhas orientadora
@@ -27,7 +33,10 @@
 \maketitle
 \sloppy
 
-% Sumario
+% Glossário de abreviaturas
+%\printglossary[type=\acronymtype,title=Lista de abreviaturas e siglas]
+
+% Sumário
 \tableofcontents
 
 % Resumo em Portugues (no maximo 250 palavras)
@@ -41,6 +50,28 @@ O Harmonic roda sobre a plataforma Node.js, que é, de forma resumida, um motor 
 \end{abstract}
 
 \chapter{Introdução}
+
+O projeto Harmonic trata-se de um gerador de sites estáticos. Ou seja, é um programa capaz de gerar uma estrutura de pastas e \emph{arquivos fonte} onde o usuário pode criar e gerenciar o conteúdo de seu site, além de poder instalar, criar ou personalizar \emph{temas}, que são grupos de arquivos de \textit{template}.
+
+O Harmonic pode ser instalado de forma gratuita pelo gerenciador de pacotes \href{https://www.npmjs.com/}{\emph{npm}}. Os temas do Harmonic geralmente são disponibilizados através de pacotes também distribuídos pelo npm, mas o usuário também tem a opção de criar temas privados sem a necessidade de publicá-los no npm nem compartilhá-los com o público.
+
+Outra característica importante do projeto Harmonic é que todo seu desenvolvimento se dá ao aberto, tendo não apenas todo seu \emph{código fonte} acessível publicamente em um repositório hospedado no serviço do \href{https://github.com/}{GitHub}, mas também todas discussões, reportagem de problemas, tomadas de decisões e governança do projeto se dá de forma aberta no próprio \textit{issue tracking system} do GitHub, que é utilizado como uma espécie de sistema de gerenciamento do projeto.
+
+O projeto Harmonic está sendo escrito sobre a plataforma \emph{Node.js}, que possibilita a execução de programas escritos na linguagem de programação JavaScript nos principais Sistemas Operacionais (Windows, OS X e várias distribuições de Linux). Desta forma, todo projeto é escrito em uma linguagem de programação fácil de escrever e contribuir, além de não possuir limitações comumente encontradas no ambiente de um \textit{browser}.
+
+Um dos objetivos laterais deste projeto também é aprender, explorar e demonstrar os novos recursos oferecidos pela linguagem JavaScript, como aqueles introduzidos nas novas edições da especificação ECMAScript, assim como nas propostas que estão em andamento no processo de padronização do TC39 (Technical Committee 39, grupo responsável pela evolução da linguagem JavaScript) da associação \textit{ECMA International}. % TODO: TC39 provavelmente deveria ser marcado como acrônimo
+
+O grande foco deste projeto está na ergonomia do usuário e simplicidade de ser utilizado. O usuário está sempre em primeiro plano. Recursos como recompilar arquivos automaticamente ao serem modificados assim como recarregar o site em desenvolvimento automaticamente quando há mudanças, além da excelente performance da ferramenta e a simplicidade da interface de linha de comando, facilitam a vida do usuário e o deixam mais produtivo.
+
+Na próxima seção veremos um pouco mais sobre a metodologia do projeto. % TODO: verificar se metodologia será realmente a próxima seção
+
+% TODO: falar um pouco mais sobre a interface de linha de comando, talvez?
+
+% TODO: esta seção carece de referências.
+
+% TODO: criar uma função/macro para formatar texto estrangeiro invés de utilizar formatação itálico diretamente
+
+% \gls{tc39}
 
 %A computação  ubíqua~\cite{Cac08}, é  uma forma de computação onde o processamento está espalhado no ambiente através de  vários dispositivos, que executam tarefas bem definidas dependendo de sua natureza,  interligados de forma que essa estrutura torna-se invisível para o usuário. Aplicações  ubíquas executam em ambientes instrumentados com sensores, geralmente dotados  de interfaces de redes sem fio, nos quais dispositivos, agentes de software e serviços são  integrados de forma transparente e cooperam para atender aos objetivos da aplicação.  Essa categoria de aplicações caracteriza-se por constantes mudanças em seu estado de  execução, geradas pelos ambientes altamente dinâmicos em que executam.
 %
@@ -167,7 +198,7 @@ Os objetivos específicos são:
 	
 	\item estudar e aprofundar a metodologia de criação de sites estáticos;
 	\item estudar os recursos das próxima(s) versão(ões) do JavaScript (ECMAScript 2015 e além);
-	\item estudar a plataforma Node.js;
+	\item estudar as plataformas Node.js e io.js;
     \item criar um gerador de sites estáticos com recursos que os demais ainda não possuem;
 
 \end{itemize}
