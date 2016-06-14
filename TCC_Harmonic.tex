@@ -92,13 +92,24 @@ Na próxima seção veremos um pouco mais sobre o tema e metodologia do projeto.
 	%
 %Na perspectiva de suprir estas funcionalidades, este trabalho tem como objetivo principal propor um \emph{framework } denominado uMed direcionado as demandas da medicina ubíqua.
 
-\chapter{Tema}
+\chapter{Fundamentação Teórica}
 
-%O trabalho proposto tem como tema  o desenvolvimento de uma arquitetura de software na perspectiva da computação ubíqua direcionada para área da medicina. Os ambientes de medicina ubíqua são aqueles em que facilidades tecnológicas, como dispositivos móveis e redes de comunicação sem fio, trazem novas possibilidades de acesso e interação de seus usuários (médicos, enfermeiros, pacientes, dentre outros) tornando o serviço mais ágil e abrangendo regiões carentes de serviços médicos além de outras possibilidades.
-%
-%Assim o tema deste trabalho abrange estudar projetos já existentes na área de medicina ubíqua assim como as soluções utilizadas para solucionar os desafios impostos nesta área e propor a criação de \emph{framework} chamado de uMed que atenda as demadas da medicina ubíqua.
+A proposta dos sites estáticos é um tema bem popular atualmente, tendo 435 geradores de sites estáticos já existentes no momento da escrita. [https://staticsitegenerators.net/]
 
-\chapter{Motivação}
+Ao contrário dos sites dinâmicos, que requisitam banco de dados e executam lógica no servidor para cada requisição, todo o conteúdo de um site estático é gerado inteiramente em uma única execução de uma ferramenta de geração de sites estáticos, assim podendo ser hospedado em um servidor que não necessita de banco de dados nem suporte a nenhuma linguagem de programação. Além disto, sites estáticos são muito mais rápidos que os dinâmicos, pois todo processamento de conteúdo já foi realizado no momento da geração do site estático e não a cada requisição como nos sites dinâmicos. Outro ponto é a segurança, sites estáticos são extremamente mais seguros que os dinâmicos pois não possuem lógica de programação no servidor, o que os torna a prova de falhas de segurança na programação do lado do servidor. [https://davidwalsh.name/introduction-static-site-generators]
+
+Praticamente todos geradores de sites suportam a escrita de conteúdo através da linguagem de marcação Markdown, que é basicamente uma linguagem mais fácil de escrever e ler do que HTML. Markdown é uma ferramenta de conversão de texto para HTML para escritores Web. [https://daringfireball.net/projects/markdown/] O projeto Harmonic também suporta a linguagem de marcação Markdown e o converte para HTML na momento da geração do conteúdo.
+
+O projeto Harmonic é desenvolvido sobre a plataforma Node.js, que suporta todos os principais sistemas operacionais (OS X, Linux, Solaris, FreeBSD, OpenBSD, Windows, webOS, NonStop OS) nos permitindo executar o mesmo código em todas estas plataformas. A plataforma Node.js executa código na linguagem de programação JavaScript, que é bem simples de escrever e portanto facilita bastante no desenvolvimento. O Node.js também possui mais de 250,000 pacotes públicos publicados no registro de pacotes mais popular, npm, [https://www.npmjs.com/], o que torna o desenvolvimento muito mais ágil permitindo reutilizar "blocos de construção" para construir sistemas maiores. [https://nodejs.org/en/about/] % TODO: procurar referências mais detalhadas para o Node.js
+
+\chapter{Metodologia de Pesquisa}
+
+sub-capítulo: experiência própria
+
+sub-capítulo: Sistemas semelhantes
+
+Vejamos uma comparação entre os Sistemas Semelhantes.
+
 
 %É crescente o uso de tecnologia na prestação de serviços de saúde. As atividades de segunda opinião, monitoramento de pacientes, telediagnóstico remoto entre outras são atividades utilizadas mediante uma infraestrutura de rede, realizadas por profissionais conectados em outro centro médico distante da localidade onde o paciente está sendo examinado.
 %Estes cenários são interessantes pois reduzem custos com relação ao deslocamento dos profissionais de saúde e com relação à troca de informações sobre diagnósticos. Todo o histórico de um paciente pode ser armazenado em um Prontuário Eletrônico do Paciente (PEP), e através do acesso aos dados é possível auxiliar na obtenção de um diagnóstico completo e eficaz.
