@@ -5,6 +5,53 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+
+% Code blocks
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\lstdefinelanguage{JavaScript}{
+  keywords={break, case, catch, continue, debugger, default, delete, do, else, false, finally, for, function, if, in, instanceof, new, null, return, switch, this, throw, true, try, typeof, var, void, while, with},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  sensitive=true
+}
+
+\lstset{frame=tb,
+  language=JavaScript,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4
+}
+
+% Inline code
+\newcommand{\code}[1]{\texttt{#1}}
+
+
+
 %\usepackage[acronym]{glossaries}
 
 % Abreviaturas:
@@ -122,6 +169,60 @@ UML é uma linguagem de modelagem que auxilia os desenvolvedores na montagem dos
 
 UML é uma metodologia que disponibiliza diversas maneiras para analisar uma determinada questão e neste projeto será utilizado uma abordagem orientada a objetos, que auxilia na reutilização de métodos ou atributos, melhorando o desenvolvimento e a manutenção do sistema. Os itens a seguir apresentam diagramas para facilitar o entendimento do leitor.
 
+% TODO adicionar diagramas
+
+
+\section{Tecnologias utilizadas}
+
+A FAZER
+
+\section{Estrutura do projeto}
+
+O Harmonic divide-se em vários módulos, sendo eles: criação de um novo site estático, configuração do site estático, criação de \textit{posts} e páginas, geração do site estático e execução do site estático, além do módulo de ajuda.
+
+\section{Módulo de criação de um novo site estático}
+
+O Harmonic permite a criação de novos sites estáticos através do comando \code{harmonic init}. Este comando gera uma estrutura padrão de pastas e arquivos, onde são guardados todos arquivos fontes do site estático.
+
+O comando \code{harmonic init} realiza uma série de perguntas sobre as configurações e personalizações que o site deve possuir, então escreve estas configurações no arquivo de configuração do site estático \code{harmonic.json}. O usuário pode futuramente modificar estas configurações utilizando o comando \code{harmonic config} ou editando o arquivo de configuração \code{harmonic.json} em qualquer editor de texto, já que o arquivo de configuração nada mais é do que um arquivo de texto no formato \emph{JSON}.
+
+% TODO inserir screenshot
+
+\section{Configurações disponíveis}
+
+A FAZER
+
+\section{Criação de novos \textit{posts}}
+
+A FAZER
+
+\subsection{Meta-informações e configurações de \textit{posts}}
+
+A FAZER
+
+\section{Geração do site estático}
+
+A FAZER
+
+\section{Execução do site estático}
+
+A FAZER
+
+\chapter{Exemplo de código JavaScript}
+
+(capítulo temporário, por enquanto apenas testando o syntax highlighter)
+
+\begin{lstlisting}
+// Hello.js
+function foo(arg) {
+	alert(1);
+}
+\end{lstlisting}
+
+% Exemplo puxando o código fonte de um arquivo separado:
+% \lstinputlisting[breaklines]{source.js}
+
+
 %É crescente o uso de tecnologia na prestação de serviços de saúde. As atividades de segunda opinião, monitoramento de pacientes, telediagnóstico remoto entre outras são atividades utilizadas mediante uma infraestrutura de rede, realizadas por profissionais conectados em outro centro médico distante da localidade onde o paciente está sendo examinado.
 %Estes cenários são interessantes pois reduzem custos com relação ao deslocamento dos profissionais de saúde e com relação à troca de informações sobre diagnósticos. Todo o histórico de um paciente pode ser armazenado em um Prontuário Eletrônico do Paciente (PEP), e através do acesso aos dados é possível auxiliar na obtenção de um diagnóstico completo e eficaz.
 %
@@ -220,7 +321,7 @@ Os objetivos específicos são:
 	
 	\item estudar e aprofundar a metodologia de criação de sites estáticos;
 	\item estudar os recursos das próxima(s) versão(ões) do JavaScript (ECMAScript 2015 e além);
-	\item estudar as plataformas Node.js e io.js;
+	\item estudar a plataforma Node.js;
     \item criar um gerador de sites estáticos com recursos que os demais ainda não possuem;
 
 \end{itemize}
