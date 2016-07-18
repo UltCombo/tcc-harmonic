@@ -198,26 +198,67 @@ O usuário pode criar novos \textit{posts} utilizando o comando \code{harmonic n
 
 \subsection{Meta-informações e configurações de \textit{posts}}
 
-A FAZER
+Cada arquivo fonte de \textit{post} possui um cabeçalho de meta-informações, no formato de um comentário HTML contendo pares de chaves e valores. Por exemplo:
+
+\lstset{language=HTML}
+\begin{lstlisting}
+<!--
+layout: post
+title: JavaScript iterables and iterators
+date: 2015-09-15T04:06:02.428Z
+comments: true
+published: true
+keywords: iterables, iterators, ES2015
+description: Understanding JavaScript ES2015 Iterables and Iterators
+categories: iterables, iterators, ES2015, articles
+authorName: Fabrício S. Matté
+authorLink: https://twitter.com/Ult_Combo
+authorDescription: ECMAScript enthusiast, open source addict and Web Platform lover.
+authorPicture: https://s.gravatar.com/avatar/326fba1c2980ce0073f6b212acf71ea0
+-->
+\end{lstlisting}
+
+\begin{itemize}
+	\item \textbf{\code{layout}}: nome do arquivo HTML do tema selecionado a ser utilizado na renderização deste \textit{post}. O valor padrão é \code{post}.
+	\item \textbf{\code{title}}: título do \textit{post}.
+	\item \textbf{\code{date}}: data de publicação deste \textit{post}. Pode ser utilizado para agendar uma publicação futura.
+	\item \textbf{\code{comments}}: Um valor booleano indicando se o \textit{post} deve permitir comentários ou não. Note que nem todos temas suportam comentários. O valor padrão é \code{true}.
+	\item \textbf{\code{published}}: Um valor booleano indicando se o \textit{post} está publicado ou não. Pode ser utilizado para despublicar ou ocultar o \textit{post}. O valor padrão é \code{true}.
+	\item \textbf{\code{keywords}}: Palavras-chave descrevendo o \textit{post}.
+	\item \textbf{\code{description}}: Descrição resumida do \textit{post}.
+	\item \textbf{\code{categories}}: Lista de categorias a qual o \textit{post} pertence, separadas por vírgulas. Você pode especificar qualquer nome de categoria, se a mesma não existir ela será criada.
+	\item \textbf{\code{authorName}}: Nome do autor do \textit{post}.
+	\item \textbf{\code{authorDescription}}: Biografia resumida do autor do \textit{post}.
+	\item \textbf{\code{authorPicture}}: Endereço URL para a foto de perfil do autor do \textit{post}.
+\end{itemize}
 
 \section{Geração do site estático}
 
-A FAZER
+Para consumir o conteúdo do site é necessário primeiro gerar o site estático, que é basicamente um processo de compilação. Para isso, pode-se utilizar o comando \code{harmonic build}, que gera o site estático a partir dos arquivos fontes (configurações, tema ativo e arquivos Markdown) do seu site Harmonic, assim gerando arquivos HTML, CSS e JS como saída.
+
+Com estes arquivos, então, é possível abrir o arquivo \code{index.html} em seu navegador de preferência e navegar pelo site estático.
+
+Note que qualquer edição ou mudança realizada nos arquivos fontes do site, incluindo edição de \textit{posts} e alteração de configurações, requer uma nova compilação para que as mudanças sejam refletidas nos arquivos compilados.
 
 \section{Execução do site estático}
 
-A FAZER
+O Harmonic também dispõe do comando \code{harmonic run}, que além de realizar o mesmo processo de compilação que o \code{harmonic build}, também inicia um servidor local para servir os arquivos estáticos e automaticamente abre o site estático no navegador padrão do sistema. Este é o método indicado para pre-visualização de seu site estático, pois os navegadores frequentemente bloqueiam vários recursos JavaScript ao acessar os arquivos estáticos diretamente do disco sem um servidor envolvido no processo, o que pode afetar a funcionalidade do site caso você abra os arquivos diretamente no navegador como descrito na seção anterior.
 
-\chapter{Exemplo de código JavaScript}
+Além disso, o comando \code{harmonic run} também conta com um recurso de auto-geração de site e auto-recarregamento do navegador ("\textit{live-reload}") sempre que ocorrerem alterações nos arquivos fontes do site, assim proporcionando uma experiência de criação de conteúdos otimizada e muito mais prática e eficiente.
 
-(capítulo temporário, por enquanto apenas testando o syntax highlighter)
+Por padrão, o comando \code{harmonic run} inicia um servidor local na porta \code{9356}, e abre o site no navegador padrão do sistema automaticamente. É possível customizar estes recursos, passando a porta desejada como primeiro parâmetro do comando (exemplo: \code{harmonic run 8080}), assim como desabilitar a função de abrir o site automaticamente passando a \textit{flag} \code{--no-open}.
 
-\begin{lstlisting}
-// Hello.js
-function foo(arg) {
-	alert(1);
-}
-\end{lstlisting}
+% \chapter{Exemplo de código JavaScript}
+
+% (capítulo temporário, por enquanto apenas testando o syntax highlighter)
+
+% \lstset{language=JavaScript}
+% \begin{lstlisting}
+% // Hello.js
+% function foo(arg) {
+%	alert(1);
+% }
+% \end{lstlisting}
 
 % Exemplo puxando o código fonte de um arquivo separado:
 % \lstinputlisting[breaklines]{source.js}
@@ -341,7 +382,17 @@ Os objetivos específicos são:
 	%Estudo de um modelo apropriado para a representação da informação contextual responsável pelas principais entidades que representam informações úteis para a representação do contexto na área médica, como, as entidades usuário, paciente, laudo, imagem e hardware (ou equipamento).
 %Essas entidades poderiam ser refinadas em entidades mais simples como estudo, séries, procedimento, exame, conclusões relevantes, ou combinadas em superestruturas como histórico do paciente, e repositório de imagens, por exemplo.
 
-\chapter{Cronograma}
+\chapter{Trabalhos Futuros}
+
+\section{Plugins}
+
+A FAZER
+
+\section{Melhorias no desenvolvimento de temas}
+
+A FAZER
+
+%\chapter{Cronograma}
 
 %\begin{table}[htb]
 %\begin{center}
