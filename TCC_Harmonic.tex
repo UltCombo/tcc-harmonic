@@ -89,7 +89,7 @@
 % Resumo em Portugues (no maximo 250 palavras)
 \begin{abstract}
 
-O projeto Harmonic tem por objetivo desenvolver um gerador de sites estáticos, utilizando como base a plataforma Node.js e os recursos mais recentes da linguagem JavaScript, recursos que estão sendo especificados no padrão ECMAScript 2015 (previamente conhecido como ECMAScript 6), o qual é previsto se tornar finalizado e oficializado como padrão da linguagem JavaScript na metade de 2015. Para isto, é utilizado o compilador Babel, que transforma código que utiliza recursos de especificações futuras do JavaScript em código que pode ser executado nos motores JavaScript atuais.
+O projeto Harmonic tem por objetivo desenvolver um gerador de sites estáticos, utilizando como base a plataforma Node.js e os recursos mais recentes da linguagem JavaScript, recursos que estão sendo especificados no padrão ECMAScript 2015 \cite{es2015}, o qual foi finalizado e oficializado como padrão da linguagem JavaScript na metade de 2015. Para isto, é utilizado o compilador Babel, que transforma código que utiliza recursos de especificações futuras do JavaScript em código que pode ser executado nos motores JavaScript atuais.
 
 O Harmonic roda sobre a plataforma Node.js, que é, de forma resumida, um motor JavaScript combinado com servidor Web, que permite execução do mesmo código JavaScript em todas as principais plataformas (Windows, Linux, Mac), sem possuir as restrições de segurança comumente encontradas no ambiente de navegadores. Ou seja, o código JavaScript executado pelo Node.js tem acesso completo ao sistema de arquivos e rede da máquina hospedeira, e esta é uma das principais capacidades do Node.js das quais o Harmonic utiliza para gerar sites estáticos.
 
@@ -100,7 +100,7 @@ O Harmonic roda sobre a plataforma Node.js, que é, de forma resumida, um motor 
 
 O projeto Harmonic trata-se de um gerador de sites estáticos. Ou seja, é um programa capaz de gerar uma estrutura de pastas e \emph{arquivos fonte} onde o usuário pode criar e gerenciar o conteúdo de seu site, além de poder instalar, criar ou personalizar \emph{temas}, que são grupos de arquivos de \textit{template}.
 
-O Harmonic pode ser instalado de forma gratuita pelo gerenciador de pacotes \href{https://www.npmjs.com/}{\emph{npm}}. Os temas do Harmonic geralmente são disponibilizados através de pacotes também distribuídos pelo npm, mas o usuário também possui a opção de criar temas privados sem a necessidade de publicá-los no npm nem compartilhá-los com o público.
+O Harmonic pode ser instalado de forma gratuita pelo gerenciador de pacotes \emph{npm} \cite{npm}. Os temas do Harmonic geralmente são disponibilizados através de pacotes também distribuídos pelo npm, mas o usuário também possui a opção de criar temas privados sem a necessidade de publicá-los no npm nem compartilhá-los com o público.
 
 Outra característica importante do projeto Harmonic é que todo seu desenvolvimento se dá de forma aberta, tendo não apenas todo seu \emph{código fonte} acessível publicamente em um repositório hospedado no serviço do \href{https://github.com/}{GitHub}, mas também todas discussões, reportagem de problemas, tomadas de decisões e governança do projeto também se dá de forma aberta no próprio \textit{issue tracking system} do GitHub, que é utilizado como uma espécie de sistema de gerenciamento do projeto.
 
@@ -145,9 +145,9 @@ A proposta dos sites estáticos é um tema bem popular atualmente, tendo 435 ger
 
 Ao contrário dos sites dinâmicos, que requisitam banco de dados e executam lógica no servidor para cada requisição, todo o conteúdo de um site estático é gerado inteiramente em uma única execução de uma ferramenta de geração de sites estáticos, assim podendo ser hospedado em um servidor que não necessita de banco de dados nem suporte a nenhuma linguagem de programação. Além disto, sites estáticos são muito mais rápidos que os dinâmicos, pois todo processamento de conteúdo já foi realizado no momento da geração do site estático e não a cada requisição como nos sites dinâmicos. Outro ponto é a segurança, sites estáticos são extremamente mais seguros que os dinâmicos pois não possuem lógica de programação no servidor, o que os torna a prova de falhas de segurança na programação do lado do servidor. [https://davidwalsh.name/introduction-static-site-generators]
 
-Praticamente todos geradores de sites suportam a escrita de conteúdo através da linguagem de marcação Markdown, que é basicamente uma linguagem mais fácil de escrever e ler do que HTML. Markdown é uma ferramenta de conversão de texto para HTML para escritores Web. [https://daringfireball.net/projects/markdown/] O projeto Harmonic também suporta a linguagem de marcação Markdown e o converte para HTML na momento da geração do conteúdo.
+Praticamente todos geradores de sites suportam a escrita de conteúdo através da linguagem de marcação Markdown \cite{markdown}, que é basicamente uma linguagem mais fácil de escrever e ler do que HTML. Markdown é uma ferramenta de conversão de texto para HTML para escritores Web. O projeto Harmonic também suporta a linguagem de marcação Markdown e o converte para HTML na momento da geração do conteúdo.
 
-O projeto Harmonic é desenvolvido sobre a plataforma Node.js, que suporta todos os principais sistemas operacionais (OS X, Linux, Solaris, FreeBSD, OpenBSD, Windows, webOS, NonStop OS) nos permitindo executar o mesmo código em todas estas plataformas. A plataforma Node.js executa código na linguagem de programação JavaScript, que é bem simples de escrever e portanto facilita bastante no desenvolvimento. O Node.js também possui mais de 250,000 pacotes públicos publicados no registro de pacotes mais popular, npm, [https://www.npmjs.com/], o que torna o desenvolvimento muito mais ágil permitindo reutilizar "blocos de construção" para construir sistemas maiores. [https://nodejs.org/en/about/] % TODO: procurar referências mais detalhadas para o Node.js
+O projeto Harmonic é desenvolvido sobre a plataforma Node.js, que suporta todos os principais sistemas operacionais (OS X, Linux, Solaris, FreeBSD, OpenBSD, Windows, webOS, NonStop OS) nos permitindo executar o mesmo código em todas estas plataformas. A plataforma Node.js executa código na linguagem de programação JavaScript, que é bem simples de escrever e portanto facilita bastante no desenvolvimento. O Node.js também possui mais de 250,000 pacotes públicos publicados no registro de pacotes mais popular, npm, o que torna o desenvolvimento muito mais ágil permitindo reutilizar "blocos de construção" para construir sistemas maiores. [https://nodejs.org/en/about/] % TODO: procurar referências mais detalhadas para o Node.js
 
 Assim como a maioria dos pacotes, bibliotecas e ferramentas escritas sobre a plataforma Node.js, o Harmonic está publicado no registro de pacotes do npm e pode ser instalado através do gerenciador de pacotes que faz parte da instalação padrão do Node.js, ou seja, através da ferramenta de linha de comando do npm.
 
@@ -161,6 +161,10 @@ sub-capítulo: Sistemas semelhantes
 
 Vejamos uma comparação entre os Sistemas Semelhantes.
 
+\chapter{Tecnologias utilizadas}
+
+A FAZER
+
 \chapter{Modelagem do Sistema}
 
 Após especificar o que o sistema deveria possuir, passou-se à etapa de criação dos diagramas para identificar como deve ser o processo de comunicação entre os vários componentes do sistema e a utilização do UML facilitou a modelagem do software.
@@ -172,11 +176,7 @@ UML é uma metodologia que disponibiliza diversas maneiras para analisar uma det
 % TODO adicionar diagramas
 
 
-\section{Tecnologias utilizadas}
-
-A FAZER
-
-\section{Estrutura do projeto}
+\chapter{Estrutura do projeto}
 
 O Harmonic divide-se em vários módulos, sendo eles: criação de um novo site estático, configuração do site estático, criação de \textit{posts} e páginas, geração do site estático e execução do site estático, além do módulo de ajuda.
 
