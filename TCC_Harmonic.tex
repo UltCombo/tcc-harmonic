@@ -3,10 +3,14 @@
 \documentclass[ppginf, pep]{esinucpel}
 
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{graphicx}
+\usepackage{float}
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
+
+\graphicspath{ {images/} }
 
 % Code blocks
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -69,8 +73,6 @@
 \keyword{Node.js}
 \keyword{ECMAScript 2015}
 
-
-
 %\makeglossaries
 \begin{document}
 
@@ -89,18 +91,25 @@
 % Resumo em Portugues (no maximo 250 palavras)
 \begin{abstract}
 
-O projeto Harmonic tem por objetivo desenvolver um gerador de sites estáticos, utilizando como base a plataforma Node.js e os recursos mais recentes da linguagem JavaScript, recursos que estão sendo especificados no padrão ECMAScript 2015 \cite{es2015}, o qual foi finalizado e oficializado como padrão da linguagem JavaScript na metade de 2015. Para isto, é utilizado o compilador Babel, que transforma código que utiliza recursos de especificações futuras do JavaScript em código que pode ser executado nos motores JavaScript atuais.
+O projeto Harmonic tem por objetivo desenvolver um gerador de sites estáticos, utilizando como base a plataforma Node.js juntamente com os recursos mais recentes da linguagem JavaScript que foram especificados no padrão ECMAScript 2015 \cite{es2015}, o qual foi finalizado e oficializado como padrão da linguagem JavaScript em Junho de 2015. O compilador Babel é utilizado para atingir este objetivo, o qual transforma código que utiliza recursos de especificações recentes e futuras do JavaScript em código que pode ser executado nos motores JavaScript atuais.
 
 O Harmonic roda sobre a plataforma Node.js, que é, de forma resumida, um motor JavaScript combinado com servidor Web, que permite execução do mesmo código JavaScript em todas as principais plataformas (Windows, Linux, Mac), sem possuir as restrições de segurança comumente encontradas no ambiente de navegadores. Ou seja, o código JavaScript executado pelo Node.js tem acesso completo ao sistema de arquivos e rede da máquina hospedeira, e esta é uma das principais capacidades do Node.js das quais o Harmonic utiliza para gerar sites estáticos.
 
-
 \end{abstract}
+
+\begin{englishabstract}{Harmonic: The Next Static Site Generator}{Static Site Generator, Node.js, ECMAScript 2015}
+
+The Harmonic project aims to develop a static site generator, using the Node.js platform as its base together with the most recent JavaScript features that have been specified in the ECMAScript 2015 standard \cite{es2015}, which was completed and officially published as the JavaScript language standard in June 2015. The Babel compiler is utilized to achieve this goal, which transforms code that uses features from the most recent and future JavaScript specifications into code that can be run in the current JavaScript engines.
+
+Harmonic runs on the Node.js platform, which is, basically, a JavaScript engine combined with a Web server, which enables the same JavaScript code to run in all the major platforms (Windows, Linux, Mac), having none of the security restrictions often found in the browser environment. That is, the JavaScript code run by Node.js has full access to the host machine's file system and network, and this is one of the main Node.js capabilities of which Harmonic uses to generate static sites.
+
+\end{englishabstract}
 
 \chapter{Introdução}
 
 O projeto Harmonic trata-se de um gerador de sites estáticos. Ou seja, é um programa capaz de gerar uma estrutura de pastas e \emph{arquivos fonte} onde o usuário pode criar e gerenciar o conteúdo de seu site, além de poder instalar, criar ou personalizar \emph{temas}, que são grupos de arquivos de \textit{template}.
 
-O Harmonic pode ser instalado de forma gratuita pelo gerenciador de pacotes \emph{npm} \cite{npm}. Os temas do Harmonic geralmente são disponibilizados através de pacotes também distribuídos pelo npm, mas o usuário também possui a opção de criar temas privados sem a necessidade de publicá-los no npm nem compartilhá-los com o público.
+O Harmonic pode ser instalado de forma gratuita pelo gerenciador de pacotes \emph{npm} \cite{npm}. Os temas do Harmonic geralmente são disponibilizados através de pacotes também distribuídos pelo npm, mas o usuário também possui a opção de criar temas privados sem a necessidade de publicá-los no npm, assim como não compartilhá-los com o público.
 
 Outra característica importante do projeto Harmonic é que todo seu desenvolvimento se dá de forma aberta, tendo não apenas todo seu \emph{código fonte} acessível publicamente em um repositório hospedado no serviço do \href{https://github.com/}{GitHub}, mas também todas discussões, reportagem de problemas, tomadas de decisões e governança do projeto também se dá de forma aberta no próprio \textit{issue tracking system} do GitHub, que é utilizado como uma espécie de sistema de gerenciamento do projeto.
 
@@ -110,48 +119,39 @@ O foco principal deste projeto está na ergonomia do usuário e simplicidade de 
 
 Um dos objetivos complementares deste projeto é aprender, explorar e demonstrar os novos recursos oferecidos pela linguagem JavaScript, como aqueles introduzidos nas novas edições da especificação ECMAScript, assim como nas propostas que estão em andamento no processo de padronização do TC39 (Technical Committee 39, grupo responsável pela evolução da linguagem JavaScript) da associação \textit{ECMA International}. % TODO: TC39 provavelmente deveria ser marcado como acrônimo
 
-Na próxima seção veremos um pouco mais sobre o tema e metodologia do projeto. % TODO: verificar se metodologia será realmente a próxima seção
+Na próxima seção veremos um pouco mais sobre o tema e metodologia do projeto. % TODO: listar todos capítulos seguintes
 
 % TODO: falar um pouco mais sobre a interface de linha de comando, talvez?
 
 % TODO: esta seção carece de referências.
 
-% TODO: criar uma função/macro para formatar texto estrangeiro invés de utilizar formatação itálico diretamente
+\section{Justificativa}
 
-% \gls{tc39}
+\section{Objetivos}
 
-%A computação  ubíqua~\cite{Cac08}, é  uma forma de computação onde o processamento está espalhado no ambiente através de  vários dispositivos, que executam tarefas bem definidas dependendo de sua natureza,  interligados de forma que essa estrutura torna-se invisível para o usuário. Aplicações  ubíquas executam em ambientes instrumentados com sensores, geralmente dotados  de interfaces de redes sem fio, nos quais dispositivos, agentes de software e serviços são  integrados de forma transparente e cooperam para atender aos objetivos da aplicação.  Essa categoria de aplicações caracteriza-se por constantes mudanças em seu estado de  execução, geradas pelos ambientes altamente dinâmicos em que executam.
-%
-%A computação ubíqua ganhou muito espaço com a disseminação de dispositivos portáteis, sobretudo após a ampliação das tecnologias de redes sem fio. Dessa forma, o uso da computação tem sido trazido para diversos cenários reais, onde sua usabilidade nos moldes da computação tradicional não poderia ser tão ampla. Cenários na área médica, podem estender-se a diversas atividades, como telemonitoramento através do uso de sensores de medicina ubíqua, diagnósticos remotos, segunda opinião, juntas médicas, viabilizando a integração de dispositivos móveis como PDAs, Tablets, Smartphones, dentre outros com os sistemas de prontuário eletrônico existentes nos hospitais, dentre outros cenários, desde residências inteligentes a trabalhos colaborativos.
-%
-%
-%Ambientes  de  medicina  ubíqua  são  aqueles  em  que  facilidades  tecnológicas, como dispositivos móveis e redes de comunicação sem fio, trazem novas possibilidades de acesso e interação de seus usuários, como por exemplo, o acesso das informações dos pacientes. Estas  informações  compõem  o  chamado  Prontuário Eletrônico  do  Paciente (PEP),  permitindo  que  dados  sobre  exames,  fatos  e  situações  sobre  a  saúde  de  um paciente possam  ser acessados através de múltiplos dispositivos e  redes  heterogêneas. Na medicina ubíqua podem-se  realizar acessos a PEPs com  informações consolidadas sobre os pacientes de qualquer lugar da rede, permitindo, inclusive, que haja cooperação entre profissionais independentemente do tempo e do espaço \cite {Diniz:09}.
-%
-%Em  particular,  ambientes  de  medicina  ubíqua  precisam  oferecer  suporte  à mobilidade  de  seus  profissionais,  tendo  em  vista  que  a  mobilidade  dos  médicos  é inerente  à  própria  profissão.  Além  desse  caráter  nômade  do  médico,  é  importante considerar  que  a  atividade  médica  é  bastante  fragmentada \cite {tentori:08}, ou seja, está sujeita a  interrupções durante sua execução, uma vez que médicos passam  pouco  tempo  em  cada  local  ou  atividade.  Dessa  forma,  mecanismos  que facilitem  a  continuidade  de  atividades  dos  profissionais,  mesmo  em  virtude  de  seus constantes deslocamentos, tendem a melhorar a produtividade dos mesmos \cite{Diniz:09} .
-%
-%
-%Como já mencionado anteriormente, os médicos e colaboradores de hospitais trabalham em constante movimento. O trabalho descrito em \cite{Rodriguez:04} também se utiliza desta motivação reafirmando a necessidade de constante mudança de localização por parte destes profissionais em suas atividades diárias.
-%
-%
-%Ao se construir e executar aplicações para medicina ubíqua, há uma série de funcionalidades que devem ser providas, envolvendo desde a aquisição de informações contextuais, a partir do conjunto de fontes heterogêneas e distribuídas,  até a representação dessas informações, seu processamento, armazenamento, e a  realização de inferências para seu uso em tomadas de decisão. Em vez dessas  funcionalidades ficarem a cargo da aplicação, e deste modo  incorporandas ao código do negócio, são  utilizadas plataformas ou \emph{middlewares} de provisão  de contexto.
-%
-%Esse trabalho está inserido nos esforços de pesquisa do projeto PERTMED (Sistema de TeleMedicina Móvel), a principal razão desta inserção é o fato da área médica, estar sendo alvo de avanços das tecnologias móveis e sem fio, como Bluetooth, WiFi, GPRS, os quais somados a popularização dos dispositivos móveis e sem fio, PDAs, Smartphone, GPS e pequenos dispositivos médicos, como \emph{Holters}, entre outros, facilitam a tarefa de monitoramento de pacientes. Infraestruturas de software para o gerenciamento dessas informações contextuais necessitam, em geral, coletar uma grande quantidade de informações de diferentes naturezas do ambiente, analisando essas informações como variáveis independentes, ou combiná-las com outras informações do passado ou presente. Além disso, essas aplicações são caracterizadas por apresentarem contextos altamente dinâmicos e variados, com um grande grau de mobilidade dos seus principais atores (médicos, pacientes, paramédicos, etc.).
-	%
-%Na perspectiva de suprir estas funcionalidades, este trabalho tem como objetivo principal propor um \emph{framework } denominado uMed direcionado as demandas da medicina ubíqua.
+O objetivo geral deste trabalho é explorar a área de geradores de sites estáticos, desenvolvendo um novo gerador de sites estáticos com recursos inovadores e fazendo uso das últimas tecnologias relacionadas à linguagem JavaScript.
+
+Os objetivos específicos são:
+\begin{itemize}
+	
+	\item estudar e aprofundar a metodologia de criação de sites estáticos;
+	\item estudar os recursos das próxima(s) versão(ões) do JavaScript (ECMAScript 2015 e além);
+	\item estudar a plataforma Node.js;
+    \item criar um gerador de sites estáticos com recursos que os demais ainda não possuem;
+
+\end{itemize}
 
 \chapter{Fundamentação Teórica}
 
-A proposta dos sites estáticos é um tema bem popular atualmente, tendo 435 geradores de sites estáticos já existentes no momento da escrita. [https://staticsitegenerators.net/]
+A proposta dos sites estáticos é um tema bem popular atualmente, tendo mais de 435 geradores de sites estáticos já existentes. \cite{staticsitegenerators}
 
-Ao contrário dos sites dinâmicos, que requisitam banco de dados e executam lógica no servidor para cada requisição, todo o conteúdo de um site estático é gerado inteiramente em uma única execução de uma ferramenta de geração de sites estáticos, assim podendo ser hospedado em um servidor que não necessita de banco de dados nem suporte a nenhuma linguagem de programação. Além disto, sites estáticos são muito mais rápidos que os dinâmicos, pois todo processamento de conteúdo já foi realizado no momento da geração do site estático e não a cada requisição como nos sites dinâmicos. Outro ponto é a segurança, sites estáticos são extremamente mais seguros que os dinâmicos pois não possuem lógica de programação no servidor, o que os torna a prova de falhas de segurança na programação do lado do servidor. [https://davidwalsh.name/introduction-static-site-generators]
+Ao contrário dos sites dinâmicos, que requisitam banco de dados e executam lógica no servidor para cada requisição, todo o conteúdo de um site estático é gerado instantaneamente antes de qualquer acesso por parte de usuários, assim podendo ser hospedado em um servidor que não necessita de banco de dados nem suporte a nenhuma linguagem de programação.
 
-Praticamente todos geradores de sites suportam a escrita de conteúdo através da linguagem de marcação Markdown \cite{markdown}, que é basicamente uma linguagem mais fácil de escrever e ler do que HTML. Markdown é uma ferramenta de conversão de texto para HTML para escritores Web. O projeto Harmonic também suporta a linguagem de marcação Markdown e o converte para HTML na momento da geração do conteúdo.
+Além disto, como diz David Walsh, sites estáticos são muito mais rápidos que os dinâmicos, pois todo processamento de conteúdo já foi realizado no momento da geração do site estático e não a cada requisição como nos sites dinâmicos. Outro ponto é a segurança, sites estáticos são extremamente mais seguros que os dinâmicos pois não possuem lógica de programação no servidor, o que os torna a prova de falhas de segurança na programação do lado do servidor. \cite{dwb}
 
-O projeto Harmonic é desenvolvido sobre a plataforma Node.js, que suporta todos os principais sistemas operacionais (OS X, Linux, Solaris, FreeBSD, OpenBSD, Windows, webOS, NonStop OS) nos permitindo executar o mesmo código em todas estas plataformas. A plataforma Node.js executa código na linguagem de programação JavaScript, que é bem simples de escrever e portanto facilita bastante no desenvolvimento. O Node.js também possui mais de 250,000 pacotes públicos publicados no registro de pacotes mais popular, npm, o que torna o desenvolvimento muito mais ágil permitindo reutilizar "blocos de construção" para construir sistemas maiores. [https://nodejs.org/en/about/] % TODO: procurar referências mais detalhadas para o Node.js
+Praticamente todos geradores de sites suportam a escrita de conteúdo através da linguagem de marcação Markdown, que é basicamente uma versão simplificada, mais fácil de escrever e ler do que a linguagem de marcação HTML. Markdown é uma ferramenta de conversão de texto para HTML para escritores Web  \cite{markdown}. O projeto Harmonic também suporta a linguagem de marcação Markdown e o converte para HTML na momento da geração do conteúdo.
 
-Assim como a maioria dos pacotes, bibliotecas e ferramentas escritas sobre a plataforma Node.js, o Harmonic está publicado no registro de pacotes do npm e pode ser instalado através do gerenciador de pacotes que faz parte da instalação padrão do Node.js, ou seja, através da ferramenta de linha de comando do npm.
-
-E, similarmente a outros geradores de sites estáticos, o Harmonic conta uma ferramenta de linha de comando que pode ser utilizada para criar um novo site estático, adicionar conteúdo ao mesmo, compilar o site estático e visualizá-lo no navegador.
+O projeto Harmonic é desenvolvido sobre a plataforma Node.js, que suporta todos os principais sistemas operacionais (OS X, Linux, Solaris, FreeBSD, OpenBSD, Windows, webOS, NonStop OS) nos permitindo executar o mesmo código em todas estas plataformas. A plataforma Node.js executa código JavaScript, que é uma linguagem de programação leve e bem simplificada \cite{mdn_js_intro}, assim facilitando no desenvolvimento. O Node.js também possui mais de 250.000 pacotes públicos publicados no registro de pacotes mais popular, npm \cite{npm}, o que torna o desenvolvimento muito mais ágil permitindo reutilizar "blocos de construção" para construir sistemas maiores. \cite{micromodules}
 
 \chapter{Metodologia de Pesquisa}
 
@@ -161,20 +161,79 @@ sub-capítulo: Sistemas semelhantes
 
 Vejamos uma comparação entre os Sistemas Semelhantes.
 
-\chapter{Tecnologias e Ferramentas Utilizadas}
-
-A FAZER
-
 \chapter{Modelagem do Sistema}
 
 Após especificar o que o sistema deveria possuir, passou-se à etapa de criação dos diagramas para identificar como deve ser o processo de comunicação entre os vários componentes do sistema e a utilização do UML facilitou a modelagem do software.
 
-UML é uma linguagem de modelagem que auxilia os desenvolvedores na montagem dos requisitos e do comportamento dos processos no sistema, também atua na descoberta de possíveis necessidades físicas que possam surgir na implementação de uma determinada ferramenta (GILLEANES, 2011). % TODO cite
+UML é uma linguagem de modelagem que auxilia os desenvolvedores na montagem dos requisitos e do comportamento dos processos no sistema, também atua na descoberta de possíveis necessidades físicas que possam surgir na implementação de uma determinada ferramenta. \cite{uml}
 
 UML é uma metodologia que disponibiliza diversas maneiras para analisar uma determinada questão e neste projeto será utilizado uma abordagem orientada a objetos, que auxilia na reutilização de métodos ou atributos, melhorando o desenvolvimento e a manutenção do sistema. Os itens a seguir apresentam diagramas para facilitar o entendimento do leitor.
 
-% TODO adicionar diagramas
+\section{Diagrama de Sequência}
 
+Foram criados diagramas de sequência pois estes ajudam a planejar o fluxo de informações e operações a serem realizadas pelas rotinas do sistema. O diagrama de sequência da execução do site estático, que é uma das principais funcionalidades do Harmonic, pode ser conferido na figura \ref{fig:sequencia}.
+
+\begin{figure}[H]
+    \centering
+    \caption{Diagrama de sequência da execução de um site estático do Harmonic.}
+    \vspace{5pt}
+    \includegraphics[width=\textwidth]{sequencia}
+    \\Fonte: Elaborado pelo autor.
+    \label{fig:sequencia}
+\end{figure}
+
+\section{Diagrama de Casos de Uso}
+
+Foi criado um diagrama de casos de uso pois este facilita mapear as funcionalidades que o sistema deve desempenhar assim como as relações entre elas. O diagrama de casos de uso do Harmonic pode ser conferido na figura \ref{fig:casos_de_uso}.
+
+\begin{figure}[H]
+    \centering
+    \caption{Diagrama de casos de uso do Harmonic.}
+    \vspace{5pt}
+    \includegraphics[width=\textwidth]{casos-de-uso}
+    \\Fonte: Elaborado pelo autor.
+    \label{fig:casos_de_uso}
+\end{figure}
+
+\chapter{Tecnologias e Ferramentas Utilizadas}
+
+\section{JavaScript}
+
+JavaScript é uma linguagem de programação orientada a objetos multiplataforma. Dentro de um ambiente hospedeiro (por exemplo, um navegador web), JavaScript pode ser conectado aos objetos de seu ambiente para prover controle sobre eles. O padrão oficial da linguagem JavaScript é o ECMAScript. \cite{mdn_js_intro}
+
+O JavaScript obteve uma evolução significativa nos últimos anos, tornando-se assim uma das linguagens de propósito geral mais utilizadas no mundo. É mais conhecida como a linguagem incorporada aos navegadores Web, mas também houve um grande crescimento em sua adoção por parte de servidores e aplicações embarcadas. \cite{es2015}
+
+O projeto Harmonic escolheu esta linguagem de programação devido a sua ampla aceitação no mercado e rápida evolução, além de esta linguagem ser relativamente simples e fácil de trabalhar, contendo centenas de milhares de pacotes comunitários que facilitam no desenvolvimento de praticamente qualquer sistema.
+
+\section{Node.js}
+
+Node.js é uma plataforma de código fonte aberto que permite construir aplicações em rede utilizando a linguagem JavaScript. Node.js é construído em cima do V8, uma máquina virtual JavaScript moderna que também é utilizada pelo navagedor Web Google Chrome. \cite{instant_nodejs_starter:03}
+
+Node.js é um \textit{runtime} JavaScript assíncrono orientado a eventos. \cite{nodejs} Isto que dizer que o Node.js pode ser considerado uma plataforma que combina um motor JavaScript com acesso a recursos do sistema operacional hospedeiro.
+
+A plataforma Node.js roda diretamente sobre o sistema operacional, com isto é possível executar código JavaScript completamente fora do ambiente de um navegador Web. Assim sendo, o Node.js não interage com uma página da Web diretamente, mas sim com os recursos do computador hospedeiro. Por exemplo, o Node.js pode receber e realizar requisições HTTP, ler e escrever no sistema de arquivos, e se comunicar com outros processos, \textit{sockets} e \textit{drivers} do sistema operacional. \cite{javaworld}
+
+Todo o projeto Harmonic é construído sobre a plataforma Node.js, que realiza toda lógica de negócios e leitura e escritas ao sistema de arquivos do usuário.
+
+\section{npm}
+
+O npm é o gerenciador de pacotes padrão da plataforma Node.js, contando com mais de 250.000 pacotes publicados \cite{npm} e provendo mais de um bilhão de instalações de pacotes semanalmente \cite{npm_packages}.
+
+O projeto Harmonic escolheu o npm como sua plataforma de distribuição e gerenciador de dependências devido ao seu fácil acesso, altíssima resiliência e ubiquidade na comunidade Node.js.
+
+\section{JSON}
+
+JSON (JavaScript Object Notation) é um formato de troca de informações eficiente. É fácil de ler e escrever manualmente. É fácil de analisar e gerar por computadores, assim como ler e escrever por desenvolvedores. \cite{json}
+
+O projeto Harmonic escolheu o formato JSON para o armazenamento de configurações, pois este formato facilita a operação dos dados tanto pelo sistema quanto pelo usuário final.
+
+\section{Markdown}
+
+\section{gulp}
+
+\section{Babel}
+
+\section{BrowserSync}
 
 \chapter{Descrição do Sistema}
 
@@ -182,13 +241,24 @@ UML é uma metodologia que disponibiliza diversas maneiras para analisar uma det
 
 O Harmonic divide-se em vários módulos, sendo eles: criação de um novo site estático, configuração do site estático, criação de \textit{posts} e páginas, geração do site estático e execução do site estático, além do módulo de ajuda.
 
+Assim como a maioria dos pacotes, bibliotecas e ferramentas escritas sobre a plataforma Node.js, o Harmonic está publicado no registro de pacotes do npm e pode ser instalado através do gerenciador de pacotes que faz parte da instalação padrão do Node.js, ou seja, através da ferramenta de linha de comando do npm.
+
+E, similarmente a outros geradores de sites estáticos, o Harmonic conta uma ferramenta de linha de comando que pode ser utilizada para criar um novo site estático, adicionar conteúdo ao mesmo, compilar o site estático e visualizá-lo no navegador.
+
 \section{Módulo de criação de um novo site estático}
 
 O Harmonic permite a criação de novos sites estáticos através do comando \code{harmonic init}. Este comando gera uma estrutura padrão de pastas e arquivos, onde são guardados todos arquivos fontes do site estático.
 
-O comando \code{harmonic init} realiza uma série de perguntas sobre as configurações e personalizações que o site deve possuir, então escreve estas configurações no arquivo de configuração do site estático \code{harmonic.json}. O usuário pode futuramente modificar estas configurações utilizando o comando \code{harmonic config} ou editando o arquivo de configuração \code{harmonic.json} em qualquer editor de texto, já que o arquivo de configuração nada mais é do que um arquivo de texto no formato \emph{JSON}.
+O comando \code{harmonic init} realiza uma série de questionamentos sobre as configurações e personalizações que o site deve possuir (conforme pode ser conferido na figura \ref{fig:harmonic_init}), então escreve estas configurações no arquivo de configuração do site estático \code{harmonic.json}. O usuário pode futuramente modificar estas configurações utilizando o comando \code{harmonic config} ou editando o arquivo de configuração \code{harmonic.json} em qualquer editor de texto, já que o arquivo de configuração nada mais é do que um arquivo de texto no formato \emph{JSON}.
 
-% TODO inserir screenshot
+\begin{figure}[H]
+    \centering
+    \caption{Exemplo do comando "harmonic init".}
+    \vspace{5pt}
+    \includegraphics[width=.85\textwidth]{harmonic_init}
+    \\Fonte: Elaborado pelo autor.
+    \label{fig:harmonic_init}
+\end{figure}
 
 \section{Configurações disponíveis}
 
@@ -200,25 +270,33 @@ O usuário pode criar novos \textit{posts} utilizando o comando \code{harmonic n
 
 \subsection{Meta-informações e configurações de \textit{posts}}
 
-Cada arquivo fonte de \textit{post} possui um cabeçalho de meta-informações, no formato de um comentário HTML contendo pares de chaves e valores. Por exemplo:
+Cada arquivo fonte de \textit{post} possui um cabeçalho de meta-informações, no formato de um comentário HTML contendo pares de chaves e valores, como pode ser visto na figura \ref{fig:post_header}.
 
-\lstset{language=HTML}
-\begin{lstlisting}
-<!--
-layout: post
-title: JavaScript iterables and iterators
-date: 2015-09-15T04:06:02.428Z
-comments: true
-published: true
-keywords: iterables, iterators, ES2015
-description: Understanding JavaScript ES2015 Iterables and Iterators
-categories: iterables, iterators, ES2015, articles
-authorName: Fabrício S. Matté
-authorLink: https://twitter.com/Ult_Combo
-authorDescription: ECMAScript enthusiast, open source addict and Web Platform lover.
-authorPicture: https://s.gravatar.com/avatar/326fba1c2980ce0073f6b212acf71ea0
--->
-\end{lstlisting}
+\begin{figure}[H]
+    \centering
+    \caption{Exemplo de cabeçalho de meta-informações de um \textit{post} do Harmonic.}
+    
+    \lstset{language=HTML}
+    \begin{lstlisting}
+    <!--
+    layout: post
+    title: JavaScript iterables and iterators
+    date: 2015-09-15T04:06:02.428Z
+    comments: true
+    published: true
+    keywords: iterables, iterators, ES2015
+    description: Understanding JavaScript ES2015 Iterables and Iterators
+    categories: iterables, iterators, ES2015, articles
+    authorName: UltCombo
+    authorLink: https://twitter.com/Ult_Combo
+    authorDescription: Full Stack developer, ECMAScript enthusiast, open source lover.
+    authorPicture: https://s.gravatar.com/avatar/326fba1c2980ce0073f6b212acf71ea0
+    -->
+    \end{lstlisting}
+    
+    Fonte: Elaborado pelo autor.
+    \label{fig:post_header}
+\end{figure}
 
 \begin{itemize}
 	\item \textbf{\code{layout}}: nome do arquivo HTML do tema selecionado a ser utilizado na renderização deste \textit{post}. O valor padrão é \code{post}.
@@ -249,6 +327,20 @@ O Harmonic também dispõe do comando \code{harmonic run}, que além de realizar
 Além disso, o comando \code{harmonic run} também conta com um recurso de auto-geração de site e auto-recarregamento do navegador ("\textit{live-reload}") sempre que ocorrerem alterações nos arquivos fontes do site, assim proporcionando uma experiência de criação de conteúdos otimizada e muito mais prática e eficiente.
 
 Por padrão, o comando \code{harmonic run} inicia um servidor local na porta \code{9356}, e abre o site no navegador padrão do sistema automaticamente. É possível customizar estes recursos, passando a porta desejada como primeiro parâmetro do comando (exemplo: \code{harmonic run 8080}), assim como desabilitar a função de abrir o site automaticamente passando a \textit{flag} \code{--no-open}.
+
+\chapter{Considerações Finais}
+
+\section{Resultados obtidos e discussões}
+
+\section{Trabalhos Futuros}
+
+\subsection{Plugins}
+
+A FAZER
+
+\subsection{Melhorias no desenvolvimento de temas}
+
+A FAZER
 
 % \chapter{Exemplo de código JavaScript}
 
@@ -285,9 +377,9 @@ Por padrão, o comando \code{harmonic run} inicia um servidor local na porta \co
 %O grupo G3PD ao qual este trabalho está sendo desenvolvido vem ultimamente pesquisando sobre computação ubíqua/pervasiva desenvolvendo serviço para um \textit{middleware} chamado de EXEHDA. Neste trabalho procuro identificar os desafios de pesquisa na área de medicina ubíqua e com os resultados a serem obtidos a perspectiva é adequar o uso dos serviços do  \textit{middleware} EXEHDA para as demandas funcionais introduzidas pela medicina ubíqua.
 
 
-\chapter{Escopo do Trabalho}
+% \chapter{Escopo do Trabalho}
 
-\section{Medicina Ubíqua: Principais Demandas}
+% \section{Medicina Ubíqua: Principais Demandas}
 
 %Ambientes  de  medicina  ubíqua  são  aqueles  em  que  facilidades  tecnológicas, como dispositivos móveis e redes de comunicação sem fio, trazem novas possibilidades de acesso e interação de seus usuários, como por exemplo, o acesso das informações dos pacientes. Estas  informações  compõem  o  chamado  Prontuário Eletrônico  do  Paciente (PEP),  permitindo  que  dados  sobre  exames,  fatos  e  situações  sobre  a  saúde  de  um paciente possam  ser acessados através de múltiplos dispositivos e  redes  heterogêneas. Na medicina ubíqua podem-se  realizar acessos a PEPs com  informações consolidadas sobre os pacientes de qualquer lugar da rede, permitindo, inclusive, que haja cooperação entre profissionais independentemente do tempo e do espaço \cite {Diniz:09}.
 %
@@ -351,23 +443,6 @@ Por padrão, o comando \code{harmonic run} inicia um servidor local na porta \co
 %Com a introdução da computação ubíqua na área da saúde, objetiva-se dentre outros aspectos, prover uma contribuição no sentido de superação de desigualdades regionais e sócio-econômicas, relativas ao acesso às informações dos sistemas de saúde.
 
 
-
-
-
-
-\chapter{Objetivo}
-
-O objetivo geral deste trabalho é explorar a área de geradores de sites estáticos, desenvolvendo um novo gerador de sites estáticos com recursos inovadores e fazendo uso das últimas tecnologias relacionadas à linguagem JavaScript.
-
-Os objetivos específicos são:
-\begin{itemize}
-	
-	\item estudar e aprofundar a metodologia de criação de sites estáticos;
-	\item estudar os recursos das próxima(s) versão(ões) do JavaScript (ECMAScript 2015 e além);
-	\item estudar a plataforma Node.js;
-    \item criar um gerador de sites estáticos com recursos que os demais ainda não possuem;
-
-\end{itemize}
 %
 %\chapter{Metodologia}
 %
@@ -384,15 +459,6 @@ Os objetivos específicos são:
 	%Estudo de um modelo apropriado para a representação da informação contextual responsável pelas principais entidades que representam informações úteis para a representação do contexto na área médica, como, as entidades usuário, paciente, laudo, imagem e hardware (ou equipamento).
 %Essas entidades poderiam ser refinadas em entidades mais simples como estudo, séries, procedimento, exame, conclusões relevantes, ou combinadas em superestruturas como histórico do paciente, e repositório de imagens, por exemplo.
 
-\chapter{Trabalhos Futuros}
-
-\section{Plugins}
-
-A FAZER
-
-\section{Melhorias no desenvolvimento de temas}
-
-A FAZER
 
 %\chapter{Cronograma}
 

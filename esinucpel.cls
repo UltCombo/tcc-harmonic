@@ -1,17 +1,17 @@
 %==============================================================================
-% Identificação
+% Identificaï¿½ï¿½o
 %==============================================================================
 \def\currversion{14/12/2006}
 
 \typeout{^^J^^J
 --------------------------------------------------^^J
 CLASSE esinucpel^^J
-Formatação de Documentos da ESIN^^J
+Formataï¿½ï¿½o de Documentos da ESIN^^J
 --------------------------------------------------^^J
 Desenvolvida a partir da Classe IIUFRGS^^J
 por Marilton S. de Aguiar (marilton@ucpel.tche.br)^^J
 --------------------------------------------------^^J
-Versão: \currversion^^J
+Versï¿½o: \currversion^^J
 --------------------------------------------------^^J^^J}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -25,7 +25,7 @@ Versão: \currversion^^J
 \newcommand{\planodopep}[1]{\gdef\@planodopep{#1}}
 
 %==============================================================================
-% Declaração de opções
+% Declaraï¿½ï¿½o de opï¿½ï¿½es
 %==============================================================================
 \newcommand{\eiu@novodoc}[1]{\DeclareOption{#1}{\AtEndOfClass{\input{#1.def}}}}
 \eiu@novodoc{pg}
@@ -50,7 +50,7 @@ Versão: \currversion^^J
 \ProcessOptions\relax
 
 %==============================================================================
-% Herança da classe `report' e inclusão de pacotes e arquivos necessários
+% Heranï¿½a da classe `report' e inclusï¿½o de pacotes e arquivos necessï¿½rios
 %==============================================================================
 \LoadClass[12pt,a4paper,twoside]{report}
 \RequirePackage[english,brazilian]{babel}
@@ -69,7 +69,7 @@ Versão: \currversion^^J
 }
 
 %
-% definições para textos em português
+% definiï¿½ï¿½es para textos em portuguï¿½s
 %
 \@namedef{captionsbrazilian}{%
         \def\bibname{Refer{\^e}ncias}%
@@ -132,7 +132,7 @@ Versão: \currversion^^J
 }
 
 %
-% definições para textos em inglês
+% definiï¿½ï¿½es para textos em inglï¿½s
 %
 \@namedef{captionsenglish}{%
         \def\bibname{References}%
@@ -216,7 +216,7 @@ Versão: \currversion^^J
 
 % ajuste das medidas verticais
 \setlength{\topmargin}{\ei@pagenummargin}
-        \addtolength{\topmargin}{-1em} % isto é +- a altura do núm. da página
+        \addtolength{\topmargin}{-1em} % isto ï¿½ +- a altura do nï¿½m. da pï¿½gina
         \addtolength{\topmargin}{-1in}
 \setlength{\headheight}{1em}
 \setlength{\headsep}{\ei@topmargin}
@@ -234,7 +234,7 @@ Versão: \currversion^^J
         \addtolength{\textwidth}{-2\ei@sidemargin}
 
 %==============================================================================
-% Numeração das páginas
+% Numeraï¿½ï¿½o das pï¿½ginas
 %==============================================================================
 \def\ps@esinucpel{
         \let\@oddfoot\@empty
@@ -246,7 +246,7 @@ Versão: \currversion^^J
 \let\ps@plain\ps@empty
 
 %==============================================================================
-% Definição de autor(es), orientador e co-orientador
+% Definiï¿½ï¿½o de autor(es), orientador e co-orientador
 %==============================================================================
 \newcounter{ei@authorcount}
 \renewcommand{\author}[2]{
@@ -282,7 +282,7 @@ Versão: \currversion^^J
 
 
 %==============================================================================
-% Definição das palavras-chave (máx. 10)
+% Definiï¿½ï¿½o das palavras-chave (mï¿½x. 10)
 %==============================================================================
 \newcounter{kwcounter}
 \newcommand{\keyword}[1]{
@@ -304,7 +304,7 @@ Versão: \currversion^^J
 }
 
 %==============================================================================
-% Redefinição da data (para ter mês e ano separados)
+% Redefiniï¿½ï¿½o da data (para ter mï¿½s e ano separados)
 %==============================================================================
 \renewcommand{\date}[2]{
         \gdef\@publmonth{#1}
@@ -313,10 +313,10 @@ Versão: \currversion^^J
 \date{\monthname}{\number\year}
 
 %==============================================================================
-% Definição padrão da folha de rosto.
-% Os dados específicos do tipo de trabalho (dissertação, tese, etc.) são
+% Definiï¿½ï¿½o padrï¿½o da folha de rosto.
+% Os dados especï¿½ficos do tipo de trabalho (dissertaï¿½ï¿½o, tese, etc.) sï¿½o
 % informados definindo-se o comando \titlepagespecificinfo. Veja os
-% arquivos .def incluídos com a classe.
+% arquivos .def incluï¿½dos com a classe.
 %==============================================================================
 \newlength{\titlepagewinwidth}\setlength{\titlepagewinwidth}{130mm}
 \newlength{\titlepagewinheight}\setlength{\titlepagewinheight}{40mm}
@@ -467,7 +467,7 @@ Versão: \currversion^^J
 %}
 
 %==============================================================================
-% Ajuste do sumário (nada indentado) 
+% Ajuste do sumï¿½rio (nada indentado) 
 %==============================================================================
 \newlength{\ei@chapnumindent}\setlength{\ei@chapnumindent}{1.8em}
 \renewcommand*{\l@chapter}[2]{
@@ -494,7 +494,7 @@ Versão: \currversion^^J
 }
 
 %==============================================================================
-% Definição das listas de abreviaturas e siglas e de símbolos
+% Definiï¿½ï¿½o das listas de abreviaturas e siglas e de sï¿½mbolos
 %==============================================================================
 \newenvironment{listofabbrv}[1]{
         \chapter*{\listabbrvname}
@@ -545,7 +545,7 @@ Versão: \currversion^^J
                 \begin{otherlanguage}{english}
         }
                 \chapter*{\abstractname}
-                % os 22ex abaixo fazem o título em inglês iniciar a
+                % os 22ex abaixo fazem o tï¿½tulo em inglï¿½s iniciar a
                 % aproximadamente 5cm da borda superior
                 \noindent\raisebox{22ex}[0pt][0pt]{%
                        \parbox[t]{\textwidth}{{\bf TITLE:} ``\MakeUppercase{#1}''}
@@ -557,13 +557,13 @@ Versão: \currversion^^J
 }
 
 %==============================================================================
-% Formatação dos capítulos.
-% Os comandos \@chapter e \@schapter são redefinidos para que a
-% numeração de páginas seja correta (deve aparecer somente a partir do
-% primeiro capítulo do texto, mas não nas páginas iniciais de
-% capítulos).
+% Formataï¿½ï¿½o dos capï¿½tulos.
+% Os comandos \@chapter e \@schapter sï¿½o redefinidos para que a
+% numeraï¿½ï¿½o de pï¿½ginas seja correta (deve aparecer somente a partir do
+% primeiro capï¿½tulo do texto, mas nï¿½o nas pï¿½ginas iniciais de
+% capï¿½tulos).
 % Os comandos \@makechapterhead e \@makeschapterhead fazem a
-% formatação dos títulos propriamente ditos.
+% formataï¿½ï¿½o dos tï¿½tulos propriamente ditos.
 %==============================================================================
 \newcommand{\ei@chapterfont}{\@setfontsize\Large{16}{20}}
 \def\@chapapp{}
@@ -576,7 +576,7 @@ Versão: \currversion^^J
         \@makechapterhead{#2}\@afterheading
 }
 \def\@makechapterhead#1{%
-        \vspace*{90pt}
+        % \vspace*{90pt}
         \reset@font\noindent{\ei@chapterfont\LARGE\textbf{\@chapapp\thechapter\hspace{1em}\MakeUppercase{#1}}\par}
         \addvspace{42pt}
 }
@@ -605,7 +605,7 @@ Versão: \currversion^^J
 \newcommand{\annex}{\appendix[\annexname]}
 
 %==============================================================================
-% Formatação das seções
+% Formataï¿½ï¿½o das seï¿½ï¿½es
 %==============================================================================
 \setcounter{secnumdepth}{4}
 \renewcommand{\section}{%
@@ -625,7 +625,7 @@ Versão: \currversion^^J
 }
 
 %==============================================================================
-% Redefinição do conteúdo das listas de figuras e tabelas
+% Redefiniï¿½ï¿½o do conteï¿½do das listas de figuras e tabelas
 %==============================================================================
 \newif\if@captionlisting\@captionlistingtrue
 \long\def\@caption#1[#2]#3{%
@@ -647,7 +647,7 @@ Versão: \currversion^^J
 \let\l@table\l@figure
 
 %==============================================================================
-% Redefinição do formato de citações longas
+% Redefiniï¿½ï¿½o do formato de citaï¿½ï¿½es longas
 %==============================================================================
 \renewenvironment{quote}{%
         \small%
@@ -657,15 +657,15 @@ Versão: \currversion^^J
 }
 
 %==============================================================================
-% Ajuste do formato das citações e referências
+% Ajuste do formato das citaï¿½ï¿½es e referï¿½ncias
 %==============================================================================
 \setlength{\bibhang}{0pt}
 \let\cite\citep
 
-% Indentação de Parágrafo
+% Indentaï¿½ï¿½o de Parï¿½grafo
 \parindent 1.25cm
 
-% Espaço 1.5 entre linhas
+% Espaï¿½o 1.5 entre linhas
 
 \@ifundefined{@mestrado}{\onehalfspacing}{\singlespacing}
 
