@@ -369,7 +369,7 @@ Vers�o: \currversion^^J
                         \titlepagetopinfo
                         \vfill
                         \@ifundefined{@complementares}{}{\large\bfseries\MakeUppercase{ATIVIDADES COMPLEMENTARES}\\\MakeUppercase{PARA O CURSO DE \@course}\vfill}
-                        \@ifundefined{@planodopep}{}{\large\bfseries\MakeUppercase{PLANO DE ESTUDO E PESQUISA}\vfill} % TODO replace this with author name
+                        % \@ifundefined{@planodopep}{}{\large\bfseries\MakeUppercase{PLANO DE ESTUDO E PESQUISA}\vfill} % TODO replace this with author name
                         \@winbox
                 }
         }
@@ -587,7 +587,7 @@ Vers�o: \currversion^^J
         \@makeschapterhead{#1}\@afterheading
 }
 \def\@makeschapterhead#1{%
-        \vspace*{90pt}
+        % \vspace*{90pt}
         \reset@font\centerline{\ei@chapterfont\LARGE\textbf{\MakeUppercase{#1}}}
         \addvspace{42pt}
 }
